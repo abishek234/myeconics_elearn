@@ -12,7 +12,7 @@ export default function Sidebar2({ menu }) {
     localStorage.clear(); // Example: clearing local storage
 
     // Redirect to login page
-    Navigate('/login');
+    Navigate('/log');
     toast.success("Logout Successfully")
   }
   Sidebar2.propTypes = {
