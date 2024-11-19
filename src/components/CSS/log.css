@@ -1,0 +1,54 @@
+.logcontainer {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .logtitle {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Card styles */
+  .logcards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .logcard {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: left;
+  }
+  
+  .logcard h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #444;
+  }
+  
+  .logcard p {
+    color: #666;
+    font-size: 1rem;
+    margin: 15px 0;
+  }
+  
+  /* Button styles */
+  .logbutton {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .logbutton:hover {
+    background: #0056b3;
+  }
