@@ -43,7 +43,7 @@ const EmployeesReport = ({userId}) => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get('http://localhost:9000/api/employees/students');
+                const response = await axios.get('http://localhost:9000/api/employees/employees');
               
                 setEmployees(response.data);
                 setLoading(false);
