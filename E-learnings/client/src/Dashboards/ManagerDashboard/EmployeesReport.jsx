@@ -28,7 +28,7 @@ const EmployeesReport = ({ userId }) => {
             try {
                 const schoolname = localStorage.getItem('userschool');
                 const handlingClass = localStorage.getItem('userhandlingclass');
-                const response = await axios.get(`http://localhost:9000/api/students/employee?schoolname=${schoolname}&classid=${handlingClass}`);
+                const response = await axios.get(`http://localhost:9000/api/employees/employee?schoolname=${schoolname}&classid=${handlingClass}`);
 
                 console.log(response.data);     
                 setEmployees(response.data);
@@ -56,7 +56,7 @@ const EmployeesReport = ({ userId }) => {
     const handleDelete = async (studentId) => {
         if (window.confirm('Are you sure you want to delete this employee?')) {
             try {
-                await axios.delete(`http://localhost:9000/api/students/employee/${studentId}`);
+                await axios.delete(`http://localhost:9000/api/employees/employee/${studentId}`);
                 setEmployees(students.filter(employee => employee._id !== studentId)); // Remove the deleted employee from state
                 toast.success('Employee deleted successfully!');
             } catch (error) {

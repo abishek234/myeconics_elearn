@@ -25,7 +25,7 @@ const MainLayout = ({ userId }) => {
     // Fetch employee data based on manager ID
     const fetchEmployeeData = async () => {
         try {
-            const response = await axios.get(`http://localhost:9000/api/teachers/manager/students/${userId}`); // Fetch employee data
+            const response = await axios.get(`http://localhost:9000/api/managers/manager/employees/${userId}`); // Fetch employee data
             setEmployeeData(response.data);
         } catch (error) {
             console.error('Error fetching employee data:', error);

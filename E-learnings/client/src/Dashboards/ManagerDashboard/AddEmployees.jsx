@@ -51,7 +51,7 @@ const AddEmployees = ({ userId }) => {
 
         try {
             console.log(studentData);
-            const response = await axios.post('http://localhost:9000/api/students/employee', studentData);
+            const response = await axios.post('http://localhost:9000/api/employees/employee', studentData);
             if (response.status === 201) {
                 toast.success('Employee added successfully!');
                 resetForm();

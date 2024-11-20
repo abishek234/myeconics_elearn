@@ -50,7 +50,7 @@ const AddManagers = ({ userId }) => {
 
         try {
             console.log(teacherData);
-            const response = await axios.post('http://localhost:9000/api/teachers/manager', teacherData);
+            const response = await axios.post('http://localhost:9000/api/managers/manager', teacherData);
             if (response.status === 201) {
                 toast.success('manager added successfully!');
                 resetForm();

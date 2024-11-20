@@ -57,7 +57,7 @@ const EditEmployeeForm = ({ employee, onClose, onUpdate }) => {
         };
 
         try {
-            const response = await axios.put(`http://localhost:9000/api/students/employee/${employee._id}`, updatedEmployee);
+            const response = await axios.put(`http://localhost:9000/api/employees/employee/${employee._id}`, updatedEmployee);
             onUpdate(response.data);
             toast.success('Employee updated successfully!');
             onClose();

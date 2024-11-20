@@ -81,7 +81,7 @@ const ManagersReport = ({ userId }) => {
     const handleDelete = async (teacherId) => {
         if (window.confirm('Are you sure you want to delete this manager?')) {
             try {
-                await axios.delete(`http://localhost:9000/api/teachers/manager/${teacherId}`);
+                await axios.delete(`http://localhost:9000/api/managers/manager/${teacherId}`);
                 setManagers(teachers.filter(manager => manager._id !== teacherId)); // Remove the deleted manager from state
                 toast.success('manager deleted successfully!');
             } catch (error) {

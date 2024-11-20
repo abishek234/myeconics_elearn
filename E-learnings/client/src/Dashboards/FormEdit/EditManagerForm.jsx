@@ -55,7 +55,7 @@ const EditManagerForm = ({ manager, onUpdate, onClose }) => {
         };
 
         try {
-            const response = await axios.put(`http://localhost:9000/api/teachers/manager/${manager._id}`, updatedManager);
+            const response = await axios.put(`http://localhost:9000/api/managers/manager/${manager._id}`, updatedManager);
             onUpdate(response.data); // Call the onUpdate prop to update the manager list
             toast.success('manager updated successfully!');
             onClose(); // Close the overlay

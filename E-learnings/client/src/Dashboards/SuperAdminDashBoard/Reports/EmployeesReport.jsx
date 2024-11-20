@@ -43,7 +43,7 @@ const EmployeesReport = ({userId}) => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get('http://localhost:9000/api/students/students');
+                const response = await axios.get('http://localhost:9000/api/employees/students');
               
                 setEmployees(response.data);
                 setLoading(false);
@@ -68,7 +68,7 @@ const EmployeesReport = ({userId}) => {
     const handleDelete = async (studentId) => {
         if (window.confirm('Are you sure you want to delete this employee?')) {
             try {
-                await axios.delete(`http://localhost:9000/api/students/employee/${studentId}`);
+                await axios.delete(`http://localhost:9000/api/employees/employee/${studentId}`);
                 setEmployees(students.filter(employee => employee._id !== studentId)); // Remove the deleted employee from state
                 toast.success('Employee deleted successfully!');
             } catch (error) {
