@@ -73,7 +73,7 @@ const MainLayout = ({userId}) => {
                             <div className="stat-item">
                             <span>Total Managers:</span><br />&nbsp; <strong>{data.totalManagers || 0}</strong>
                             <div className="main-icon">
-                                    <PiEmployeeBold  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
+                                    <PiStudentBold style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
                             </div>
                             <div className="stat-item">
