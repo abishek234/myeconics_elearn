@@ -7,8 +7,8 @@ import Select from 'react-select';
 import "../CSS/Dashboard.css";
 
 const AdminTracking = ({ userId }) => {
-    const [teachers, setTeachers] = useState([]);
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
+    const [teachers, setManagers] = useState([]);
+    const [selectedManager, setSelectedManager] = useState(null);
     const [subjects, setSubjects] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState(null);
     const [chapters, setChapters] = useState([]);
@@ -25,42 +25,42 @@ const AdminTracking = ({ userId }) => {
 
     // Fetch all teachers when the component mounts
     useEffect(() => {
-        const fetchTeachers = async () => {
+        const fetchManagers = async () => {
             const adminSchoolName = localStorage.getItem('userschool');
             try {
-                const response = await axios.get(`http://localhost:9000/api/teachers/teacher?schoolname=${adminSchoolName}`);
+                const response = await axios.get(`http://localhost:9000/api/managers/manager?schoolname=${adminSchoolName}`);
                 const teacherOptions = response.data.map(t => ({ label: `${t.firstname} ${t.lastname}`, value: t._id }));
-                setTeachers(teacherOptions);
-                // Optionally set the first teacher as default
+                setManagers(teacherOptions);
+                // Optionally set the first manager as default
                 if (teacherOptions.length > 0) {
-                    setSelectedTeacher(teacherOptions[0]);
+                    setSelectedManager(teacherOptions[0]);
                 }
             } catch (err) {
-                console.error('Error fetching teachers:', err);
-                toast.error('Failed to fetch teachers. Please try again.');
+                console.error('Error fetching Managers:', err);
+                toast.error('Failed to fetch Managers. Please try again.');
             }
         };
 
-        fetchTeachers();
+        fetchManagers();
     }, []);
 
-    // Fetch subjects whenever selectedTeacher changes
+    // Fetch subjects whenever selectedManager changes
     useEffect(() => {
-        if (selectedTeacher) {
+        if (selectedManager) {
             handleFetchSubjects();
         }
-    }, [selectedTeacher]);
+    }, [selectedManager]);
 
-    // Fetch subjects for the selected teacher
+    // Fetch subjects for the selected manager
     const handleFetchSubjects = async () => {
-        if (!selectedTeacher) {
-            toast.error('Please select a teacher.');
+        if (!selectedManager) {
+            toast.error('Please select a manager.');
             return;
         }
 
         try {
-            console.log("Fetching subjects for:", selectedTeacher.label);
-            const response = await axios.get(`http://localhost:9000/api/admins/admin/teachers/subject/${selectedTeacher.label.split(' ')[0]}/${selectedTeacher.label.split(' ')[1]}`);
+            console.log("Fetching subjects for:", selectedManager.label);
+            const response = await axios.get(`http://localhost:9000/api/admins/admin/managers/subject/${selectedManager.label.split(' ')[0]}/${selectedManager.label.split(' ')[1]}`);
             console.log(response.data);
             setSubjects(response.data);
             setSelectedSubject(null);
@@ -82,14 +82,14 @@ const AdminTracking = ({ userId }) => {
     }, [selectedSubject]);
 
     const handleFetchChapters = async () => {
-        if (!selectedTeacher || !selectedSubject) {
-            toast.error('Please select a teacher and a subject.');
+        if (!selectedManager || !selectedSubject) {
+            toast.error('Please select a manager and a subject.');
             return;
         }
 
         try {
             console.log("Fetching chapters for:", selectedSubject.value);
-            const response = await axios.get(`http://localhost:9000/api/admins/admin/chapters/${selectedTeacher.label.split(' ')[0]}/${selectedTeacher.label.split(' ')[1]}/${selectedSubject.value}`);
+            const response = await axios.get(`http://localhost:9000/api/admins/admin/chapters/${selectedManager.label.split(' ')[0]}/${selectedManager.label.split(' ')[1]}/${selectedSubject.value}`);
             console.log(response.data);
             setChapters(response.data);
             setSelectedChapter(null);
@@ -109,14 +109,14 @@ const AdminTracking = ({ userId }) => {
     }, [selectedChapter]);
 
     const handleFetchTopics = async () => {
-        if (!selectedChapter.value || !selectedSubject || !selectedTeacher) {
+        if (!selectedChapter.value || !selectedSubject || !selectedManager) {
             toast.error('Please select a chapter.');
             return;
         }
 
         try {
             console.log("Fetching topics for:", selectedChapter.value); // Debugging log
-            const response = await axios.get(`http://localhost:9000/api/admins/admin/topics/${selectedTeacher.label.split(' ')[0]}/${selectedTeacher.label.split(' ')[1]}/${selectedSubject.value}/${selectedChapter.value}`);
+            const response = await axios.get(`http://localhost:9000/api/admins/admin/topics/${selectedManager.label.split(' ')[0]}/${selectedManager.label.split(' ')[1]}/${selectedSubject.value}/${selectedChapter.value}`);
             
             console.log("Fetched Topics:", response.data); // Log fetched topics
 
@@ -132,14 +132,14 @@ const AdminTracking = ({ userId }) => {
 
     const handleFetchVideos = async () => {
         // Ensure selectedTopic is valid and has a value
-        if (!selectedTopic.value || !selectedChapter || !selectedSubject || !selectedTeacher) {
+        if (!selectedTopic.value || !selectedChapter || !selectedSubject || !selectedManager) {
             toast.error('Please select a topic.');
             return;
         }
         
         try {
             console.log("Fetching videos for:", selectedTopic.value);
-            const response = await axios.get(`http://localhost:9000/api/admins/admin/videos/${selectedTeacher.label.split(' ')[0]}/${selectedTeacher.label.split(' ')[1]}/${selectedSubject.value}/${selectedChapter.value}/${selectedTopic.value}`);
+            const response = await axios.get(`http://localhost:9000/api/admins/admin/videos/${selectedManager.label.split(' ')[0]}/${selectedManager.label.split(' ')[1]}/${selectedSubject.value}/${selectedChapter.value}/${selectedTopic.value}`);
             console.log("Fetched Videos:", response.data);
     
             // Parse the response data
@@ -177,22 +177,22 @@ const AdminTracking = ({ userId }) => {
             <Header onToggleSidebar={toggleSidebar} userId={userId} />
             <Sidebar isOpen={isSidebarOpen} />
             <main className="main-content">
-                <h1>Track Videos by Teacher</h1>
+                <h1>Track Videos by manager</h1>
 
-                {/* Teacher Selection */}
+                {/* manager Selection */}
                 <div className="form-group">
                     <Select
                         options={teachers}
-                        value={selectedTeacher}
+                        value={selectedManager}
                         onChange={(option) => {
-                            setSelectedTeacher(option);
+                            setSelectedManager(option);
                         }}
-                        placeholder="Select a teacher"
+                        placeholder="Select a manager"
                     />
                 </div>
 
                 {/* Subject Selection */}
-                {selectedTeacher && (
+                {selectedManager && (
                     <div className="form-group">
                         <Select
                             options={subjects.map(subject => ({ label: subject.title || subject, value: subject._id || subject }))}

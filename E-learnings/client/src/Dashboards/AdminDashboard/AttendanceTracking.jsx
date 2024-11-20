@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const AttendanceTracking = ({userId}) => {
 
     const [isSidebarOpen, setSidebarOpen] = useState(false);
-    const [studentId, setStudentId] = useState("");
+    const [studentId, setEmployeeId] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [attendancePercentage, setAttendancePercentage] = useState(null);
@@ -54,12 +54,12 @@ const AttendanceTracking = ({userId}) => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <TextField
-                    label="Student ID"
+                    label="Employee ID"
                     variant="outlined"
                     fullWidth
                     margin="normal"
                     value={studentId}
-                    onChange={(e) => setStudentId(e.target.value)}
+                    onChange={(e) => setEmployeeId(e.target.value)}
                     required
                 />
                 <TextField

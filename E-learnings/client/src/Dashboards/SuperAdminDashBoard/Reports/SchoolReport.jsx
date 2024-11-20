@@ -111,17 +111,17 @@ const SchoolData = ({ userId }) => {
                             <Bar
                                 ref={chartRef}
                                 data={{
-                                    labels: ['Total Students', 'Boys', 'Girls', 'Total Teachers', 'Male Teachers', 'Female Teachers'],
+                                    labels: ['Total Employees', 'Boys', 'Girls', 'Total Managers', 'Male Managers', 'Female Managers'],
                                     datasets: [
                                         {
                                             label: 'School Data',
                                             data: [
-                                                schoolData.totalStudents,
+                                                schoolData.totalEmployees,
                                                 schoolData.boysCount,
                                                 schoolData.girlsCount,
-                                                schoolData.totalTeachers,
-                                                schoolData.maleTeachersCount,
-                                                schoolData.femaleTeachersCount,
+                                                schoolData.totalManagers,
+                                                schoolData.maleManagersCount,
+                                                schoolData.femaleManagersCount,
                                             ],
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.2)',
@@ -160,17 +160,17 @@ const SchoolData = ({ userId }) => {
                             <Pie
                                 ref={chartRef}
                                 data={{
-                                    labels: ['Total Students', 'Boys', 'Girls', 'Total Teachers', 'Male Teachers', 'Female Teachers'],
+                                    labels: ['Total Employees', 'Boys', 'Girls', 'Total Managers', 'Male Managers', 'Female Managers'],
                                     datasets: [
                                         {
                                             label: 'School Data',
                                             data: [
-                                                schoolData.totalStudents,
+                                                schoolData.totalEmployees,
                                                 schoolData.boysCount,
                                                 schoolData.girlsCount,
-                                                schoolData.totalTeachers,
-                                                schoolData.maleTeachersCount,
-                                                schoolData.femaleTeachersCount,
+                                                schoolData.totalManagers,
+                                                schoolData.maleManagersCount,
+                                                schoolData.femaleManagersCount,
                                             ],
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.2)',
@@ -204,17 +204,17 @@ const SchoolData = ({ userId }) => {
                             <Line
                                 ref={chartRef}
                                 data={{
-                                    labels: ['Total Students', 'Boys', 'Girls', 'Total Teachers', 'Male Teachers', 'Female Teachers'],
+                                    labels: ['Total Employees', 'Boys', 'Girls', 'Total Managers', 'Male Managers', 'Female Managers'],
                                     datasets: [
                                         {
                                             label: 'School Data',
                                             data: [
-                                                schoolData.totalStudents,
+                                                schoolData.totalEmployees,
                                                 schoolData.boysCount,
                                                 schoolData.girlsCount,
-                                                schoolData.totalTeachers,
-                                                schoolData.maleTeachersCount,
-                                                schoolData.femaleTeachersCount,
+                                                schoolData.totalManagers,
+                                                schoolData.maleManagersCount,
+                                                schoolData.femaleManagersCount,
                                             ],
                                             backgroundColor: [
                                                 // You can customize these colors

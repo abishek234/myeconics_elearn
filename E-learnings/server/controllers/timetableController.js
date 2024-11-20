@@ -1,20 +1,20 @@
 const Timetable = require('../models/TimeTable');
-const Teacher = require('../models/Teacher');
+const manager = require('../models/Manager');
 
 
-// Add timetable for a teacher
+// Add timetable for a manager
 exports.createTimetable = async (req, res) => {
     const { firstname, lastname, classId, subject, schedule } = req.body;
 
     try {
-        const teacher = await Teacher.findOne({ firstname, lastname });
+        const managers = await manager.findOne({ firstname, lastname });
         
-        if (!teacher) {
-            return res.status(404).json({ message: 'Teacher not found.' });
+        if (!managers) {
+            return res.status(404).json({ message: 'manager not found.' });
         }
 
         const newTimetable = new Timetable({
-            teacherId: teacher._id,
+            teacherId: managers._id,
             classId,
             subject,
             schedule
@@ -28,21 +28,26 @@ exports.createTimetable = async (req, res) => {
     }
 };
 
-// Get timetable by teacher
-exports.getTimetableByTeacher = async (req, res) => {
+// Get timetable by manager
+exports.getTimetableByManager = async (req, res) => {
     const { firstname, lastname } = req.params;
 
     try {
-        const teacher = await Teacher.findOne({ firstname, lastname });
+        const managers = await manager.findOne({ firstname, lastname });
+        console.log(managers);
 
-        if (!teacher) {
-            return res.status(404).json({ message: 'Teacher not found.' });
+        if (!managers) {
+            return res.status(404).json({ message: 'manager not found.' });
         }
+        const id = managers._id;
 
-        const timetable = await Timetable.find({ teacherId: teacher._id }).populate('teacherId', 'firstname lastname');
+
+        const timetable = await Timetable.find({ teacherId: id }).populate('teacherId', 'firstname lastname');
+        console.log(timetable);
+        
 
         if (!timetable.length) {
-            return res.status(404).json({ message: 'No timetable found for this teacher.' });
+            return res.status(404).json({ message: 'No timetable found for this manager.' });
         }
 
         res.status(200).json(timetable);

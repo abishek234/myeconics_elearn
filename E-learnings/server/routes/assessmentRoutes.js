@@ -5,7 +5,7 @@ const multer = require('multer');
 const XLSX = require('xlsx'); 
 const fs = require('fs');
 const Assessment = require('../models/Assessment');
-const Student = require('../models/Student');
+const Employee = require('../models/Employee');
 const Video = require('../models/Video');
 const AssessmentController = require('../controllers/assessmentController');
 
@@ -77,11 +77,11 @@ router.post('/assessment/upload', upload.single('file'), async (req, res) => {
         // Save each record to the database
         await Assessment.insertMany(results);
 
-        // Automatically check students' emails and update completedBy in videos
+        // Automatically check employees' emails and update completedBy in videos
         for (const result of results) {
-            const students = await Student.find({ email: result.email }); // Assuming you have a Student model
+            const employees = await Employee.find({ email: result.email }); // Assuming you have a Employee model
 
-            for (const student of students) {
+            for (const employee of employees) {
                 let percentageScore;
             
 
@@ -96,12 +96,12 @@ router.post('/assessment/upload', upload.single('file'), async (req, res) => {
 
                 
 
-                // Only proceed if the student's percentage score is greater than 50%
+                // Only proceed if the employee's percentage score is greater than 50%
                 if (percentageScore > 50) { 
                     const existingVideo = await Video.findOne({ completedBy: result.email });
                     if (existingVideo) {
                         console.log(`Assessment already completed by ${result.email}`);
-                        continue; // Skip to the next student if already completed
+                        continue; // Skip to the next employee if already completed
                     } else {
                         // Find associated video based on class, subject, chapter, and topic
                         const video = await Video.findOne({
@@ -111,8 +111,8 @@ router.post('/assessment/upload', upload.single('file'), async (req, res) => {
                             topic: result.topic
                         });
 
-                        if (video && !video.completedBy.includes(student.email)) {
-                            video.completedBy.push(student.email); // Add student's email to completedBy array
+                        if (video && !video.completedBy.includes(employee.email)) {
+                            video.completedBy.push(employee.email); // Add employee's email to completedBy array
                             await video.save(); // Save updated video
                         }
                     }
@@ -133,8 +133,8 @@ router.post('/assessment/upload', upload.single('file'), async (req, res) => {
 router.get('/assessment/:class/:subject', AssessmentController.getAssessmentByClass);
 
 
-//Get email of students who have taken the assessment
-router.get('/assessment/:email/:className/:subject/:chapter/:topic/', AssessmentController.getAssessmentByStudent);
+//Get email of employees who have taken the assessment
+router.get('/assessment/:email/:className/:subject/:chapter/:topic/', AssessmentController.getAssessmentByEmployee);
 
 
 

@@ -50,8 +50,8 @@ exports.getAssessmentByClass = async (req, res) => {
 
 
 
-//Get email of students who have taken the assessment
-exports.getAssessmentByStudent = async (req, res) => {
+//Get email of employees who have taken the assessment
+exports.getAssessmentByEmployee = async (req, res) => {
     try {
         const { email,className,subject,chapter,topic} = req.params;
         

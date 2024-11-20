@@ -76,23 +76,23 @@ const AttendanceTracking = ({userId}) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Student Name</TableCell>
+                                <TableCell>Employee Name</TableCell>
                                 <TableCell>Roll Number</TableCell>
                                 <TableCell>Status</TableCell>
                                 <TableCell>Action</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {attendanceData.map((student) => (
-                                <TableRow key={student.id}>
-                                    <TableCell>{student.name}</TableCell>
-                                    <TableCell>{student.rollNumber}</TableCell>
-                                    <TableCell>{student.isPresent ? "Present" : "Absent"}</TableCell>
+                            {attendanceData.map((employee) => (
+                                <TableRow key={employee.id}>
+                                    <TableCell>{employee.name}</TableCell>
+                                    <TableCell>{employee.rollNumber}</TableCell>
+                                    <TableCell>{employee.isPresent ? "Present" : "Absent"}</TableCell>
                                     <TableCell>
                                         <Button 
                                             variant="contained" 
                                             color="primary" 
-                                            onClick={() => handleMarkAttendance(student.id)}
+                                            onClick={() => handleMarkAttendance(employee.id)}
                                         >
                                             Mark Present
                                         </Button>

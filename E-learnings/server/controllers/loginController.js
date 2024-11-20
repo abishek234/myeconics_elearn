@@ -1,8 +1,8 @@
 
 const SuperAdmin = require('../models/SuperAdmin');
 const Admin = require('../models/Admin');
-const Teacher = require('../models/Teacher');
-const Student = require('../models/Student');
+const manager = require('../models/Manager');
+const Employee = require('../models/Employee');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
@@ -10,12 +10,22 @@ const mongoose = require('mongoose');
 exports.login = async (req, res) => {
     const { email, password } = req.body;
 
+
     try {
-        // Check all user types in order
-        let user = await SuperAdmin.findOne({ email });
-        if (!user) user = await Admin.findOne({ email });
-        if (!user) user = await Teacher.findOne({ email });
-        if (!user) user = await Student.findOne({ email });
+       
+let user = await SuperAdmin.findOne({ email });
+if (!user) {
+    user = await Admin.findOne({ email });
+   
+}
+if (!user) {
+    user = await manager.findOne({ email });
+  
+}
+if (!user) {
+    user = await Employee.findOne({ email });
+
+}
 
         // Check if user exists
         if (!user) {
@@ -37,15 +47,15 @@ exports.login = async (req, res) => {
         };
 
           // Add role-specific data
-          if (user.role === 'student') {
-            responseData.classid = user.classid; // Assuming classId exists in the student model
+          if (user.role === 'employee') {
+            responseData.classid = user.classid; // Assuming classId exists in the employee model
         } else if(user.role === 'admin'){
             responseData.schoolname = user.schoolname;
         }
-        else if (user.role === 'teacher') {
-            responseData.schoolname = user.schoolname; // Assuming schoolName exists in the teacher model
-            responseData.designation = user.designation; // Assuming subject exists in the teacher model
-            responseData.handlingclass = user.handlingclass; // Assuming handlingClass exists in the teacher model
+        else if (user.role === 'manager') {
+            responseData.schoolname = user.schoolname; // Assuming schoolName exists in the manager model
+            responseData.designation = user.designation; // Assuming subject exists in the manager model
+            responseData.handlingclass = user.handlingclass; // Assuming handlingClass exists in the manager model
         }
 
 
@@ -62,8 +72,8 @@ exports.getUserProfile = async (req, res) => {
         const userId = new mongoose.Types.ObjectId(req.params.id);
        let user = await SuperAdmin.findById(userId).select('-password');
        if  (!user) user = await Admin.findById(userId).select('-password');
-       if  (!user) user = await Teacher.findById(userId).select('-password');
-       if  (!user) user = await Student.findById(userId).select('-password');
+       if  (!user) user = await manager.findById(userId).select('-password');
+       if  (!user) user = await Employee.findById(userId).select('-password');
 
        if (!user) return res.status(404).json({ message: 'User not found' });
 

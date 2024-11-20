@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Video = require('../models/Video');
-const Teacher = require('../models/Teacher');
+const manager = require('../models/Manager');
 const Assessment = require('../models/Assessment'); 
-const Student = require('../models/Student');
+const Employee = require('../models/Employee');
 
 // Add a new video
 exports.createVideo = async (req, res) => {
@@ -59,7 +59,7 @@ exports.getTopicsByChapter = async (req, res) => {
 
            
             const userId = new mongoose.Types.ObjectId(req.params.id); 
-            const user = await Student.findById(userId);
+            const user = await Employee.findById(userId);
             const userEmail = user.email;
 
             const isCompleted = completedVideos.some(video => video.completedBy.includes(userEmail));
@@ -105,7 +105,7 @@ exports.getVideosByChapter = async (req, res) => {
 
 
 //get video by teacherobjectID
-exports.getVideosByTeacher = async (req, res) => {
+exports.getVideosByManager = async (req, res) => {
     try {
         const teacherID = new mongoose.Types.ObjectId(req.params.id);
         const videos = await Video.find({ teacherId : teacherID });
@@ -152,7 +152,7 @@ exports.markVideoAsCompleted = async (req, res) => {
         if (!video) return res.status(404).json({ message: 'Video not found' });
 
         // Get user email from userId (assuming you have a User model)
-        const user = await Student.findById(userId); // Assuming you have a User model
+        const user = await Employee.findById(userId); // Assuming you have a User model
         if (!user) return res.status(404).json({ message: 'User not found' });
 
         const userEmail = user.email; // Get the user's email
@@ -186,11 +186,11 @@ exports.markVideoAsCompleted = async (req, res) => {
     }
 };
 
-//get video completed by the specific student
+//get video completed by the specific employee
 exports.getCompletedVideos = async (req, res) => {
     try {
       const {videoId, userId} = req.params;
-      const user = await Student.findById(userId); // Assuming you have a User model
+      const user = await Employee.findById(userId); // Assuming you have a User model
       if (!user) return res.status(404).json({ message: 'User not found' });
       const userEmail = user.email
       
@@ -207,23 +207,23 @@ exports.getCompletedVideos = async (req, res) => {
 
 
 
-// Get videos by teacher's first and last name
-exports.getVideosByTeacherName = async (req, res) => {
+// Get videos by manager's first and last name
+exports.getVideosByManagerName = async (req, res) => {
     try {
         const { firstName, lastName } = req.params; // Destructure firstName and lastName from params
 
-        // Find the teacher by first name and last name
-        const teacher = await Teacher.findOne({
+        // Find the manager by first name and last name
+        const manager = await manager.findOne({
             firstname: firstName,
             lastname: lastName
         });
 
-        if (!teacher) {
-            return res.status(404).json({ message: 'Teacher not found' });
+        if (!manager) {
+            return res.status(404).json({ message: 'manager not found' });
         }
 
-        // Fetch videos associated with the found teacher
-        const videos = await Video.find({ teacherId: teacher._id }).populate('teacherId', 'firstname lastname');
+        // Fetch videos associated with the found manager
+        const videos = await Video.find({ teacherId: manager._id }).populate('teacherId', 'firstname lastname');
 
         res.status(200).json(videos);
     } catch (error) {

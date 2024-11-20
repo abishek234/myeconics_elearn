@@ -111,7 +111,7 @@ const AdminProfile = ({ userId }) => {
                             alt="profile-img" 
                             className="current-avatar" 
                             onClick={toggleOverlay} 
-                            style={{ width: '100px', height: '100px', borderRadius: '50%', cursor: 'pointer' }} 
+                            style={{ width: '100px', height: '100px', borderRadius: '50%', cursor: 'pointer',justifySelf:'center'  }} 
                         />
                         <Typography variant="body1">Click on the avatar to change it.</Typography>
                         <br />

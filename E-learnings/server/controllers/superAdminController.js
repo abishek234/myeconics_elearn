@@ -2,8 +2,8 @@
 const SuperAdmin = require('../models/SuperAdmin'); // Adjust the path as necessary
 const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
-const Student = require('../models/Student');
-const Teacher = require('../models/Teacher');
+const Employee = require('../models/Employee');
+const manager = require('../models/Manager');
 
 
 exports.createSuperAdmin = async (req, res) => {
@@ -77,27 +77,27 @@ exports.getSchoolData = async (req, res) => {
 
         const schoolAdminName = schoolAdmin.name;
 
-        // Fetch student statistics
-        const students = await Student.find({ schoolname: schoolName });
-        const totalStudents = students.length;
-        const boysCount = students.filter(student => student.gender === 'Male').length;
-        const girlsCount = students.filter(student => student.gender === 'Female').length;
+        // Fetch employee statistics
+        const employees = await Employee.find({ schoolname: schoolName });
+        const totalEmployees = employees.length;
+        const boysCount = employees.filter(employee => employee.gender === 'Male').length;
+        const girlsCount = employees.filter(employee => employee.gender === 'Female').length;
 
-        // Fetch teacher statistics
-        const teachers = await Teacher.find({ schoolname: schoolName });
-        const totalTeachers = teachers.length;
-        const maleTeachersCount = teachers.filter(teacher => teacher.gender === 'Male').length;
-        const femaleTeachersCount = teachers.filter(teacher => teacher.gender === 'Female').length;
+        // Fetch manager statistics
+        const teachers = await manager.find({ schoolname: schoolName });
+        const totalManagers = teachers.length;
+        const maleManagersCount = teachers.filter(manager => manager.gender === 'Male').length;
+        const femaleManagersCount = teachers.filter(manager => manager.gender === 'Female').length;
 
         // Prepare response data
         const responseData = {
             schoolAdminName,
-            totalStudents,
+            totalEmployees,
             boysCount,
             girlsCount,
-            totalTeachers,
-            maleTeachersCount,
-            femaleTeachersCount,
+            totalManagers,
+            maleManagersCount,
+            femaleManagersCount,
         };
 
         res.json(responseData);
@@ -119,17 +119,17 @@ exports.getOverallData = async (req, res) => {
         const admins = await Admin.find();
         const totalAdmins = admins.length;
 
-        // Fetch all students
-        const students = await Student.find();
-        const totalStudents = students.length;
-        const boysCount = students.filter(student => student.gender === 'Male').length;
-        const girlsCount = students.filter(student => student.gender === 'Female').length;
+        // Fetch all employees
+        const employees = await Employee.find();
+        const totalEmployees = employees.length;
+        const boysCount = employees.filter(employee => employee.gender === 'Male').length;
+        const girlsCount = employees.filter(employee => employee.gender === 'Female').length;
 
         // Fetch all teachers
-        const teachers = await Teacher.find();
-        const totalTeachers = teachers.length;
-        const maleTeachersCount = teachers.filter(teacher => teacher.gender === 'Male').length;
-        const femaleTeachersCount = teachers.filter(teacher => teacher.gender === 'Female').length;
+        const teachers = await manager.find();
+        const totalManagers = teachers.length;
+        const maleManagersCount = teachers.filter(manager => manager.gender === 'Male').length;
+        const femaleManagersCount = teachers.filter(manager => manager.gender === 'Female').length;
 
         // Fetch distinct school names to count total schools
         const schoolsSet = new Set(admins.map(admin => admin.schoolname));
@@ -139,12 +139,12 @@ exports.getOverallData = async (req, res) => {
         const responseData = {
             totalSchools,
             totalAdmins,
-            totalStudents,
+            totalEmployees,
             boysCount,
             girlsCount,
-            totalTeachers,
-            maleTeachersCount,
-            femaleTeachersCount,
+            totalManagers,
+            maleManagersCount,
+            femaleManagersCount,
         };
 
         res.json(responseData);

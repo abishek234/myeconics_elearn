@@ -9,7 +9,7 @@ router.get('/videos/subjects/:class', videoController.getSubjectsByClass);
 router.get('/videos/chapters/:class/:subject', videoController.getChaptersBySubject);
 
 
-router.get('/video/:id', videoController.getVideosByTeacher);
+router.get('/video/:id', videoController.getVideosByManager);
 
 router.put('/video/:id', videoController.updateVideo);
 
@@ -19,7 +19,7 @@ router.put('/video/mark/:id', videoController.markVideoAsCompleted);
 
 router.get('/video/:videoId/completed/:userId', videoController.getCompletedVideos);
 
-router.get('/video/:firstName/:lastName', videoController.getVideosByTeacherName);
+router.get('/video/:firstName/:lastName', videoController.getVideosByManagerName);
 
 router.get('/videos/:id/:class/:subject/:chapter', videoController.getTopicsByChapter );
 

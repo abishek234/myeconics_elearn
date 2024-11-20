@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const AttendancePeriodSchema = new mongoose.Schema({
     periodNumber: { type: Number, required: true },
     subject: { type: String, required: true }, // Subject for this period
-    presentStudents: [{ type: String, required: true }] ,// Array of roll numbers of students present
-    absentStudents: [{ type: String, required: true }] // Array of roll numbers of students absent
+    presentEmployees: [{ type: String, required: true }] ,// Array of roll numbers of employees present
+    absentEmployees: [{ type: String, required: true }] // Array of roll numbers of employees absent
 });
 
 const AttendanceSchema = new mongoose.Schema({

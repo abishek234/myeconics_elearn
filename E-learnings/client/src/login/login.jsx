@@ -38,27 +38,27 @@ const Login = ({ setUser, setRole,setSchoolName,setClassId,setHandlingClass,setD
             if (userData.role === 'admin') {
                 localStorage.setItem('userschool', userData.schoolname);
                 
-            } else if (userData.role === 'teacher') {
+            } else if (userData.role === 'manager') {
                 localStorage.setItem('userschool', userData.schoolname);
                 
                 localStorage.setItem('userhandlingclass', userData.handlingclass);
                 localStorage.setItem('userdesignation', userData.designation);
                
-            } else if (userData.role === 'student') {
+            } else if (userData.role === 'employee') {
                 localStorage.setItem('userclassid', userData.classid);
                 
             }
 
         const role = userData.role;
 
-        if (role === 'superAdmin') {
+        if (role === 'CEO') {
           navigate('/superadmindashboard');
         }else if (role === 'admin') {
           navigate('/admindashboard');
-        }else if (role === 'student') {
-            navigate('/studentdashboard');
-        }else if (role === 'teacher') {
-            navigate('/teacherdashboard');
+        }else if (role === 'employee') {
+            navigate('/Employeedashboard');
+        }else if (role === 'manager') {
+            navigate('/Managerdashboard');
         }else {
           navigate('/');
         }

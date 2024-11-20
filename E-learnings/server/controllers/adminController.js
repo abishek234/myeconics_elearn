@@ -1,7 +1,7 @@
 const Admin = require('../models/Admin'); 
-const Teacher = require('../models/Teacher');
+const manager = require('../models/Manager');
 const Videos = require('../models/Video');
-const Student = require('../models/Student');
+const Employee = require('../models/Employee');
 
 // Create a new admin
 exports.createAdmin = async (req, res) => {
@@ -70,26 +70,26 @@ exports.getDetailsBySchool = async (req, res) => {
 
         const schoolName = admin.schoolname;
 
-        // Fetch student statistics
-        const students = await Student.find({ schoolname: schoolName });
-        const totalStudents = students.length;
-        const boysCount = students.filter(student => student.gender === 'Male').length;
-        const girlsCount = students.filter(student => student.gender === 'Female').length;
+        // Fetch employee statistics
+        const employees = await Employee.find({ schoolname: schoolName });
+        const totalEmployees = employees.length;
+        const boysCount = employees.filter(employee => employee.gender === 'Male').length;
+        const girlsCount = employees.filter(employee => employee.gender === 'Female').length;
 
-        // Fetch teacher statistics
-        const teachers = await Teacher.find({ schoolname: schoolName });
-        const totalTeachers = teachers.length;
-        const maleTeachersCount = teachers.filter(teacher => teacher.gender === 'Male').length;
-        const femaleTeachersCount = teachers.filter(teacher => teacher.gender === 'Female').length;
+        // Fetch manager statistics
+        const teachers = await manager.find({ schoolname: schoolName });
+        const totalManagers = teachers.length;
+        const maleManagersCount = teachers.filter(manager => manager.gender === 'Male').length;
+        const femaleManagersCount = teachers.filter(manager => manager.gender === 'Female').length;
 
         // Prepare response data
         const responseData = {
-            totalStudents,
+            totalEmployees,
             boysCount,
             girlsCount,
-            totalTeachers,
-            maleTeachersCount,
-            femaleTeachersCount,
+            totalManagers,
+            maleManagersCount,
+            femaleManagersCount,
         };
 
         res.json(responseData);
@@ -99,18 +99,18 @@ exports.getDetailsBySchool = async (req, res) => {
     }
 }
 
-//Get subject by the specific teacher
-exports.getSubjectsByTeacher = async (req, res) => {
+//Get subject by the specific manager
+exports.getSubjectsByManager = async (req, res) => {
     const { firstname,lastname } = req.params;
 
     try {
-        // Find the teacher
-        const teacher = await Teacher.find({ firstname,lastname });
-        if (!teacher) {
-            return res.status(404).json({ message: 'Teacher not found' });
+        // Find the manager
+        const managers = await manager.find({ firstname,lastname });
+        if (!managers) {
+            return res.status(404).json({ message: 'manager not found' });
         }
 
-        const subjects =  teacher.map(t => t.designation);
+        const subjects =  managers.map(t => t.designation);
 
         res.json(subjects);
     } catch (error) {
@@ -120,24 +120,24 @@ exports.getSubjectsByTeacher = async (req, res) => {
 };
 
 
-// Get Chapters by the specific teacher subject
-    exports.getChaptersByTeacher = async (req, res) => {
+// Get Chapters by the specific manager subject
+    exports.getChaptersByManager = async (req, res) => {
         const { firstname, lastname, subject } = req.params;
 
         try {
-            // Find the teacher to get the handling class
-            const teachers = await Teacher.find({ firstname, lastname });
+            // Find the manager to get the handling class
+            const teachers = await manager.find({ firstname, lastname });
 
-            // Check if any teacher was found
+            // Check if any manager was found
             if (!teachers || teachers.length === 0) {
-                return res.status(404).json({ message: 'Teacher not found' });
+                return res.status(404).json({ message: 'manager not found' });
             }
 
-            // Access the first teacher in the array
-            const teacher = teachers[0];
+            // Access the first manager in the array
+            const managers = teachers[0];
             
             
-            const handlingClass = teacher.handlingclass;
+            const handlingClass = managers.handlingclass;
          
 
             // Fetch all chapters in that subject
@@ -152,19 +152,19 @@ exports.getSubjectsByTeacher = async (req, res) => {
         }
     };
 
-//Get topic by the specific teacher subject chapter
-exports.getTopicsByTeacher = async (req, res) => {
+//Get topic by the specific manager subject chapter
+exports.getTopicsByManager = async (req, res) => {
     const { firstname,lastname, subject, chapter } = req.params;
 
     try {
-        // Find the teacher to get the handling class
-        const teacher = await Teacher.find({firstname,lastname });
+        // Find the manager to get the handling class
+        const managers = await manager.find({firstname,lastname });
 
-        if (!teacher) {
-            return res.status(404).json({ message: 'Teacher not found' });
+        if (!managers) {
+            return res.status(404).json({ message: 'manager not found' });
         }
 
-        const handlingClass = teacher.handlingclass;
+        const handlingClass = managers.handlingclass;
 
         // Fetch all topics in that chapter
         const topics = await Videos.find({ classid: handlingClass, subject, chapter });
@@ -178,19 +178,19 @@ exports.getTopicsByTeacher = async (req, res) => {
     }
 };
 
-//Get videos by the specific teacher subject chapter topic
-exports.getVideosByTeacher = async (req, res) => {
+//Get videos by the specific manager subject chapter topic
+exports.getVideosByManager = async (req, res) => {
     const { firstname,lastname, subject, chapter, topic } = req.params;
 
     try {
-        // Find the teacher to get the handling class
-        const teacher = await Teacher.find({firstname,lastname });
+        // Find the manager to get the handling class
+        const managers = await manager.find({firstname,lastname });
 
-        if (!teacher) {
-            return res.status(404).json({ message: 'Teacher not found' });
+        if (!managers) {
+            return res.status(404).json({ message: 'manager not found' });
         }
 
-        const handlingClass = teacher.handlingclass;
+        const handlingClass = managers.handlingclass;
 
         // Fetch all videos in that topic
         const videos = await Videos.find({ classid: handlingClass, subject, chapter, topic });

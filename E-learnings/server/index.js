@@ -4,8 +4,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const adminRoutes = require('./routes/adminRoutes');
-const studentRoutes = require('./routes/studentRoutes');
-const teacherRoutes = require('./routes/teacherRoutes');
+const employeeRoutes = require('./routes/employeeRoutes');
+const managerRoutes = require('./routes/managerRoutes');
 const superAdminRoutes = require('./routes/superAdminRoutes');
 const authRoutes = require('./routes/authRoutes');
 const videoRoutes = require('./routes/videoRoutes');
@@ -30,8 +30,8 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/admins', adminRoutes);
-app.use('/api/students', studentRoutes);
-app.use('/api/teachers', teacherRoutes);
+app.use('/api/employees', employeeRoutes);
+app.use('/api/managers', managerRoutes);
 app.use('/api/superAdmins', superAdminRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/videos',videoRoutes);

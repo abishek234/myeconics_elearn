@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen }) => {
             onClick={toggleAddDropdown}
             style={{ cursor: "pointer", display: "flex", alignItems: "center", color: "white" }}
           >
-            <IoPersonAddSharp  style={{ fontSize: "21px", marginLeft: "10px", color: "white" }} /> &nbsp;ADD
+            <BiSolidReport style={{ fontSize: "21px", marginLeft: "10px", color: "white" }} /> &nbsp;ADD
             {isAddDropdownOpen ? (
               <ExpandLessIcon style={{ fontSize: "21px", marginLeft: "70px" }} />
             ) : (
@@ -42,9 +42,9 @@ const Sidebar = ({ isOpen }) => {
           </li>
           {isAddDropdownOpen && (
             <ul className="dropdown">
-              <Link to="/admindashboard/addteacher">
+              <Link to="/admindashboard/addManager">
                 <li>
-                  <IoPersonAddSharp style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Add Teacher
+                  <IoPersonAddSharp style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Add Manager
                 </li>
               </Link>
               <Link to="/admindashboard/addtimetable">
@@ -60,7 +60,7 @@ const Sidebar = ({ isOpen }) => {
             onClick={toggleTrackDropdown}
             style={{ cursor: "pointer", display: "flex", alignItems: "center", color: "white" }}
           >
-            <MdFindInPage style={{ fontSize: "21px", marginLeft: "10px", color: "white" }} /> &nbsp;Tracking
+            <BiSolidReport style={{ fontSize: "21px", marginLeft: "10px", color: "white" }} /> &nbsp;Tracking
             {isTrackDropdownOpen ? (
               <ExpandLessIcon style={{ fontSize: "21px", marginLeft: "70px" }} />
             ) : (
@@ -79,6 +79,11 @@ const Sidebar = ({ isOpen }) => {
                   <MdFindInPage style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Attendance Tracking
                 </li>
               </Link>
+              <Link to="/admindashboard/timetabletracking">
+            <li>
+              <FaTableCells style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Time Table Tracking
+            </li>
+          </Link>
             </ul>
           )}
 
@@ -96,25 +101,21 @@ const Sidebar = ({ isOpen }) => {
           </li>
           {isReportDropdownOpen && (
             <ul className="dropdown">
-              <Link to="/admindashboard/schoolteachers">
+              <Link to="/admindashboard/schoolManagers">
                 <li>
-                  <BiSolidReport style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Teachers Report
+                  <BiSolidReport style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Managers Report
                 </li>
               </Link>
-              <Link to="/admindashboard/schoolstudents">
+              <Link to="/admindashboard/schoolEmployees">
                 <li>
-                  <BiSolidReport style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Students Report
+                  <BiSolidReport style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Employees Report
                 </li>
               </Link>
             </ul>
           )}
 
           {/* Other Static Links */}
-          <Link to="/admindashboard/timetabletracking">
-            <li>
-              <FaTableCells style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Time Table Tracking
-            </li>
-          </Link>
+        
           <Link to="/admindashboard/profile">
             <li>
               <FaUserCircle style={{ fontSize: "21px", marginLeft: "10px" }} /> &nbsp;Profile

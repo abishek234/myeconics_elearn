@@ -1,6 +1,6 @@
 const Attendance = require('../models/Attendance');
 
-// Mark attendance by getting Students' roll numbers which attendance is marked by the teacher for the particular period
+// Mark attendance by getting Employees' roll numbers which attendance is marked by the manager for the particular period
 exports.markAttendance = async (req, res) => {
     try {
         const { classId, date, periods } = req.body;
@@ -12,8 +12,8 @@ exports.markAttendance = async (req, res) => {
             periods: periods.map(period => ({
                 periodNumber: period.periodNumber,
                 subject: period.subject,
-                presentStudents: period.presentStudents, // Array of roll numbers for present students
-                absentStudents: period.absentStudents // Array of roll numbers for absent students
+                presentEmployees: period.presentEmployees, // Array of roll numbers for present employees
+                absentEmployees: period.absentEmployees // Array of roll numbers for absent employees
             }))
         };
 
@@ -27,10 +27,10 @@ exports.markAttendance = async (req, res) => {
 };
 
 
-//Get attendance percentage of a student for a particular date
-exports.getStudentAttendancePercentage = async (req, res) => {
+//Get attendance percentage of a employee for a particular date
+exports.getEmployeeAttendancePercentage = async (req, res) => {
     try {
-        const { studentId, startDate, endDate } = req.query;
+        const { employeeId, startDate, endDate } = req.query;
         
 
         const attendanceRecords = await Attendance.aggregate([
@@ -46,7 +46,7 @@ exports.getStudentAttendancePercentage = async (req, res) => {
                 $project: {
                     presentCount: {
                         $cond: [
-                            { $in: [studentId, "$periods.presentStudents"] }, // Check if studentId is present
+                            { $in: [employeeId, "$periods.presentEmployees"] }, // Check if employeeId is present
                             1,
                             0,
                         ],
@@ -73,7 +73,7 @@ exports.getStudentAttendancePercentage = async (req, res) => {
     }
 };
 
-// Get attendance of all students for a particular date
+// Get attendance of all employees for a particular date
 exports.getAttendanceByDate = async (req, res) => {
     try {
         const { date } = req.query;
@@ -84,11 +84,11 @@ exports.getAttendanceByDate = async (req, res) => {
     }
 };
 
-// Get overall attendance for a student for a day with respect to the total periods
-exports.getStudentOverallAttendanceByDate = async (req, res) => {
+// Get overall attendance for a employee for a day with respect to the total periods
+exports.getEmployeeOverallAttendanceByDate = async (req, res) => {
     try {
-        const { studentId, date } = req.query;
-        const attendance = await Attendance.findOne({ studentId, date });
+        const { employeeId, date } = req.query;
+        const attendance = await Attendance.findOne({ employeeId, date });
         let presentCount = 0;
         let absentCount = 0;
         attendance.periods.forEach((period) => {
@@ -111,8 +111,8 @@ exports.getOverallAttendanceByDate = async (req, res) => {
         const attendance = await Attendance.find({ date });
         let presentCount = 0;
         let absentCount = 0;
-        attendance.forEach((student) => {
-            student.periods.forEach((period) => {
+        attendance.forEach((employee) => {
+            employee.periods.forEach((period) => {
                 if (period.status === 'present') {
                     presentCount++;
                 } else {
@@ -128,16 +128,16 @@ exports.getOverallAttendanceByDate = async (req, res) => {
 
 
 
-// Get overall attendance for a student in a month/year
-exports.getStudentAttendanceByMonth = async (req, res) => {
+// Get overall attendance for a employee in a month/year
+exports.getEmployeeAttendanceByMonth = async (req, res) => {
     try {
-        const { studentId, month, year } = req.query;
-        const attendance = await Attendance.find({ studentId });
+        const { employeeId, month, year } = req.query;
+        const attendance = await Attendance.find({ employeeId });
         let presentCount = 0;
         let absentCount = 0;
-        attendance.forEach((student) => {
-            if (student.date.getMonth() === month && student.date.getFullYear() === year) {
-                student.periods.forEach((period) => {
+        attendance.forEach((employee) => {
+            if (employee.date.getMonth() === month && employee.date.getFullYear() === year) {
+                employee.periods.forEach((period) => {
                     if (period.status === 'present') {
                         presentCount++;
                     } else {
@@ -152,16 +152,16 @@ exports.getStudentAttendanceByMonth = async (req, res) => {
     }
 };
 
-// Get overall attendance for a student in a year
-exports.getStudentAttendanceByYear = async (req, res) => {
+// Get overall attendance for a employee in a year
+exports.getEmployeeAttendanceByYear = async (req, res) => {
     try {
-        const { studentId, year } = req.query;
-        const attendance = await Attendance.find({ studentId });
+        const { employeeId, year } = req.query;
+        const attendance = await Attendance.find({ employeeId });
         let presentCount = 0;
         let absentCount = 0;
-        attendance.forEach((student) => {
-            if (student.date.getFullYear() === year) {
-                student.periods.forEach((period) => {
+        attendance.forEach((employee) => {
+            if (employee.date.getFullYear() === year) {
+                employee.periods.forEach((period) => {
                     if (period.status === 'present') {
                         presentCount++;
                     } else {

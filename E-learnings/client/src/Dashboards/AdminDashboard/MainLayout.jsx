@@ -25,7 +25,7 @@ const MainLayout = ({userId}) => {
             const response = await axios.get(`http://localhost:9000/api/admins/admin/school/${userId}`);
             setData(response.data);
         } catch (error) {
-            console.error('Error fetching student data:', error);
+            console.error('Error fetching employee data:', error);
         }
     };
 
@@ -44,7 +44,7 @@ const MainLayout = ({userId}) => {
                         <>
                             <div className="stat-item">
                                
-                                <span>Total Students:</span><br />&nbsp; <strong>{data.totalStudents || 0}</strong>
+                                <span>Total Employees:</span><br />&nbsp; <strong>{data.totalEmployees || 0}</strong>
                                 <div className="main-icon">
                                     <PiStudentBold  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
@@ -63,19 +63,19 @@ const MainLayout = ({userId}) => {
                             </div>
                             </div>
                             <div className="stat-item">
-                            <span>Total Teachers:</span><br />&nbsp; <strong>{data.totalTeachers || 0}</strong>
+                            <span>Total Managers:</span><br />&nbsp; <strong>{data.totalManagers || 0}</strong>
                             <div className="main-icon">
                                 <SchoolIcon style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                             </div>
                             </div>
                             <div className="stat-item">
-                            <span>Total Male Teachers:</span><br />&nbsp; <strong>{data.maleTeachersCount || 0}</strong>
+                            <span>Total Male Managers:</span><br />&nbsp; <strong>{data.maleManagersCount || 0}</strong>
                             <div className="main-icon">
                                 <Face6Icon style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                             </div> 
                             </div>
                             <div className="stat-item">
-                            <span>Total Female Teachers:</span><br />&nbsp; <strong>{data.femaleTeachersCount|| 0}</strong>
+                            <span>Total Female Managers:</span><br />&nbsp; <strong>{data.femaleManagersCount|| 0}</strong>
                             <div className="main-icon">
                                 <Face3Icon style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                             </div>  

@@ -53,37 +53,37 @@ const MainLayout = ({userId}) => {
                                 </div>
                             </div>
                             <div className="stat-item">
-                            <span>Total Students:</span><br />&nbsp; <strong>{data.totalStudents || 0}</strong>
+                            <span>Total Employees:</span><br />&nbsp; <strong>{data.totalEmployees || 0}</strong>
                             <div className="main-icon">
                                     <PiStudentBold  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
                             </div>
                             <div className="stat-item">
-                            <span>Boy Students:</span><br />&nbsp; <strong>{data.boysCount || 0}</strong>
+                            <span>Boy Employees:</span><br />&nbsp; <strong>{data.boysCount || 0}</strong>
                             <div className="main-icon">
                                     <Face6Icon  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
                             </div>
                             <div className="stat-item">
-                            <span>Girl Students:</span><br />&nbsp; <strong>{data.girlsCount || 0}</strong>
+                            <span>Girl Employees:</span><br />&nbsp; <strong>{data.girlsCount || 0}</strong>
                             <div className="main-icon">
                                     <Face3Icon  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
                             </div>
                             <div className="stat-item">
-                            <span>Total Teachers:</span><br />&nbsp; <strong>{data.totalTeachers || 0}</strong>
+                            <span>Total Managers:</span><br />&nbsp; <strong>{data.totalManagers || 0}</strong>
                             <div className="main-icon">
-                                    <PiStudentBold  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
+                                    <PiEmployeeBold  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
                             </div>
                             <div className="stat-item">
-                            <span>Male Teachers:</span><br />&nbsp; <strong>{data.maleTeachersCount || 0}</strong>
+                            <span>Male Managers:</span><br />&nbsp; <strong>{data.maleManagersCount || 0}</strong>
                             <div className="main-icon">
                                     <Face6Icon  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>
                             </div>
                             <div className="stat-item">
-                            <span>Female Teachers:</span><br />&nbsp; <strong>{data.femaleTeachersCount || 0}</strong>
+                            <span>Female Managers:</span><br />&nbsp; <strong>{data.femaleManagersCount || 0}</strong>
                             <div className="main-icon">
                                     <Face3Icon  style={{ fontSize: '40px', marginLeft: '15px' ,marginTop:'-70px' }} />
                                 </div>

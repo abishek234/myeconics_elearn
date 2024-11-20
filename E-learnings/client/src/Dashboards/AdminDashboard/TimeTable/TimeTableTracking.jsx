@@ -28,25 +28,25 @@ const TimeTableTracking = ({ userId }) => {
         setSidebarOpen(!isSidebarOpen);
     };
 
-    const [teachers, setTeachers] = useState([]);
+    const [teachers, setManagers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     
     // States for filtering
-    const [selectedTeacher, setSelectedTeacher] = useState('');
+    const [selectedManager, setSelectedManager] = useState('');
     const [classId, setClassId] = useState('');
     
     // Separate states for timetable data
-    const [teacherTimetableData, setTeacherTimetableData] = useState([]);
+    const [teacherTimetableData, setManagerTimetableData] = useState([]);
     const [classTimetableData, setClassTimetableData] = useState([]);
 
     useEffect(() => {
-        const fetchTeachers = async () => {
+        const fetchManagers = async () => {
             const adminSchoolName = localStorage.getItem('userschool');
             try {
-                const response = await axios.get(`http://localhost:9000/api/teachers/teacher?schoolname=${adminSchoolName}`);
+                const response = await axios.get(`http://localhost:9000/api/managers/manager?schoolname=${adminSchoolName}`);
                 const teacherOptions = response.data.map(t => ({ label: `${t.firstname} ${t.lastname}`, value: t._id }));
-                setTeachers(teacherOptions);
+                setManagers(teacherOptions);
             } catch (err) {
                 console.error('Error fetching teachers:', err);
                 toast.error('Failed to fetch teachers. Please try again.');
@@ -54,32 +54,32 @@ const TimeTableTracking = ({ userId }) => {
             setLoading(false);
         };
 
-        fetchTeachers();
+        fetchManagers();
     }, []);
 
-    const fetchTimetableByTeacher = async () => {
-        if (!selectedTeacher) return; // Prevent fetching if no teacher is selected
+    const fetchTimetableByManager = async () => {
+        if (!selectedManager) return; // Prevent fetching if no manager is selected
 
        
         setError(null); // Clear any previous errors
     
         try {
-            const selectedTeacherData = teachers.find(teacher => teacher.value === selectedTeacher);
-            const response = await axios.get(`http://localhost:9000/api/timetables/gettimetable/${selectedTeacherData.label.split(' ')[0]}/${selectedTeacherData.label.split(' ')[1]}`);
+            const selectedManagerData = teachers.find(manager => manager.value === selectedManager);
+            const response = await axios.get(`http://localhost:9000/api/timetables/gettimetable/${selectedManagerData.label.split(' ')[0]}/${selectedManagerData.label.split(' ')[1]}`);
             
             console.log('API Response:', response.data); // Log the API response
     
             // Check if response.data is an array
             if (Array.isArray(response.data)) {
-                setTeacherTimetableData(response.data); // Set timetable data for teacher
+                setManagerTimetableData(response.data); // Set timetable data for manager
                 setClassTimetableData([]); // Clear class timetable data
             } else {
-                console.error('Unexpected response type for teacher-based fetch');
-                setError('Invalid response format for teacher-based fetch');
+                console.error('Unexpected response type for manager-based fetch');
+                setError('Invalid response format for manager-based fetch');
             }
         } catch (error) {
-            console.error('Error fetching timetable by teacher:', error);
-            setError('Failed to fetch timetable by teacher.');
+            console.error('Error fetching timetable by manager:', error);
+            setError('Failed to fetch timetable by manager.');
         } finally {
             setLoading(false);
         }
@@ -100,7 +100,7 @@ const TimeTableTracking = ({ userId }) => {
             // Check if response.data is an object with day keys
             if (typeof response.data === 'object' && response.data !== null) {
                 setClassTimetableData(response.data); // Set timetable data for class
-                setTeacherTimetableData([]); // Clear teacher timetable data
+                setManagerTimetableData([]); // Clear manager timetable data
             } else {
                 console.error('Unexpected object structure for class-based fetch');
                 setError('Invalid response format for class-based fetch');
@@ -124,18 +124,18 @@ const TimeTableTracking = ({ userId }) => {
                         Timetable Management
                     </Typography>
 
-                    {/* Teacher Selection Dropdown */}
+                    {/* manager Selection Dropdown */}
                     <Grid container spacing={2} style={{ marginBottom: '20px' }}>
                         <Grid item xs={12}>
                             <Select
                                 variant="outlined"
-                                value={selectedTeacher}
-                                onChange={(e) => setSelectedTeacher(e.target.value)}
+                                value={selectedManager}
+                                onChange={(e) => setSelectedManager(e.target.value)}
                                 fullWidth
                             >
-                                {teachers.map((teacher) => (
-                                    <MenuItem key={teacher.value} value={teacher.value}>
-                                        {teacher.label}
+                                {teachers.map((manager) => (
+                                    <MenuItem key={manager.value} value={manager.value}>
+                                        {manager.label}
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -158,9 +158,9 @@ const TimeTableTracking = ({ userId }) => {
                             <Button 
                                 variant="contained" 
                                 color="primary" 
-                                onClick={fetchTimetableByTeacher}
+                                onClick={fetchTimetableByManager}
                             >
-                                Get Timetable by Teacher
+                                Get Timetable by manager
                             </Button>
                         </Grid>
                         <Grid item>

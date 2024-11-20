@@ -33,11 +33,11 @@ const VideoSchema = new mongoose.Schema({
     teacherId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Teacher', // Reference to the Teacher model
+        ref: 'manager', // Reference to the manager model
     },
     completedBy: {
         type: [String],
-        default: [],// Array of student IDs who have completed this video
+        default: [],// Array of employee IDs who have completed this video
     },
 });
 
