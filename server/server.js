@@ -12,7 +12,7 @@ import multer from "multer";
 const upload = multer({ storage: multer.memoryStorage() });
 
 
-const MONGO_URI = "mongodb+srv://avinesh14:Abishek14@cluster0.wf5jq0s.mongodb.net/myeconics?retryWrites=true&w=majority";
+const MONGO_URI = "";
 
 // Connect to your MongoDB database
 
